@@ -1,19 +1,24 @@
-// src/index.js
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from "./App";
-import CreateData from "./components/CreateData";
-import ReadData from "./components/ReadData";
-import UpdateData from "./components/UpdateData";
-import DeleteData from "./components/DeleteData";
-import { DarkModeProvider } from "./DarkModeContext";
+import CreateData from "./components/features/CreateData";
+import ReadData from "./components/features/ReadData";
+import UpdateData from "./components/features/UpdateData";
+import DeleteData from "./components/features/DeleteData";
+import { DarkModeProvider } from "./contexts/DarkModeContext";
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
     <DarkModeProvider>
-      <Router>
+      <Router
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/create" element={<CreateData />} />
@@ -23,6 +28,5 @@ ReactDOM.render(
         </Routes>
       </Router>
     </DarkModeProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
