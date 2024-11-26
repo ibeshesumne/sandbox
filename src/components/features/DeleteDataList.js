@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function DeleteDataList({ records, handleDelete }) {
+function DeleteDataList({ records, currentPage, totalPages, handleNextPage, handlePreviousPage, handleGoToLastPage, handleDelete }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zenGray dark:bg-zenDark">
       <div className="max-w-4xl p-8 bg-zenLight dark:bg-zenDark rounded-lg shadow-md">
@@ -32,6 +32,34 @@ function DeleteDataList({ records, handleDelete }) {
         {Object.keys(records).length === 0 && (
           <p className="text-center text-gray-500 mt-4">No records to delete.</p>
         )}
+
+        {/* Pagination Controls */}
+        <div className="flex justify-between items-center mt-4">
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="text-gray-600">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 disabled:opacity-50"
+          >
+            Next
+          </button>
+          <button
+            onClick={handleGoToLastPage}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 disabled:opacity-50"
+          >
+            Last
+          </button>
+        </div>
       </div>
     </div>
   );
