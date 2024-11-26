@@ -15,17 +15,17 @@ function ReadData() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-4xl p-8 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">View Records</h2>
-        <Link to="/" className="block text-blue-500 text-center mb-4 underline">
+    <div className="min-h-screen flex items-center justify-center bg-zenGray dark:bg-zenDark">
+      <div className="max-w-4xl p-8 bg-zenLight dark:bg-zenDark rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-zenDark dark:text-zenDarkText mb-6 text-center">View Records</h2>
+        <Link to="/" className="block text-zenAccent text-center mb-4 underline">
           Back to Home
         </Link>
         {Object.keys(data).length > 0 ? (
           Object.keys(data).map((key) => (
             <div
               key={key}
-              className="mb-4 p-4 border rounded-lg bg-gray-50 shadow-sm"
+              className="mb-4 p-4 border rounded-lg bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText shadow-sm"
             >
               <h3 className="text-lg font-bold">ID: {key}</h3>
               <p>Date: {data[key].date}</p>

@@ -29,9 +29,9 @@ function CreateData() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-xl p-8 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Create Record</h2>
+    <div className="min-h-screen flex items-center justify-center bg-zenGray dark:bg-zenDark">
+      <div className="max-w-xl p-8 bg-zenLight dark:bg-zenDark rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-zenDark dark:text-zenDarkText mb-6 text-center">Create Record</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="date"
@@ -40,7 +40,7 @@ function CreateData() {
             onChange={handleChange}
             placeholder="Date"
             required
-            className="w-full p-3 border rounded-md"
+            className="w-full p-3 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
           />
           <input
             type="text"
@@ -49,7 +49,7 @@ function CreateData() {
             onChange={handleChange}
             placeholder="Sender"
             required
-            className="w-full p-3 border rounded-md"
+            className="w-full p-3 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
           />
           <input
             type="text"
@@ -58,7 +58,7 @@ function CreateData() {
             onChange={handleChange}
             placeholder="Receiver"
             required
-            className="w-full p-3 border rounded-md"
+            className="w-full p-3 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
           />
           <textarea
             name="notes"
@@ -66,13 +66,13 @@ function CreateData() {
             onChange={handleChange}
             placeholder="Notes"
             required
-            className="w-full p-3 border rounded-md resize-none"
+            className="w-full p-3 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText resize-none"
           />
-          <button className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition">
+          <button className="w-full bg-zenBlue text-zenLight py-3 rounded-md hover:bg-zenAccent transition">
             Create
           </button>
         </form>
-        <Link to="/" className="block text-center mt-4 text-blue-500 underline">
+        <Link to="/" className="block text-center mt-4 text-zenAccent underline">
           Back to Home
         </Link>
       </div>

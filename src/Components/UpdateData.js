@@ -95,12 +95,12 @@ function UpdateData() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      <div className="w-full max-w-6xl p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-zenGray dark:bg-zenDark">
+      <div className="w-full max-w-6xl p-6 bg-zenLight dark:bg-zenDark rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-zenDark dark:text-zenDarkText text-center mb-6">
           Update Records
         </h2>
-        <Link to="/" className="block text-blue-500 text-center mb-4 underline">
+        <Link to="/" className="block text-zenAccent text-center mb-4 underline">
           Back to Home
         </Link>
 
@@ -116,7 +116,7 @@ function UpdateData() {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1); // Reset to first page on new search
               }}
-              className="w-full p-2 mb-4 border rounded-md"
+              className="w-full p-2 mb-4 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
             />
             {currentRecords.map((key) => (
               <div
@@ -124,8 +124,8 @@ function UpdateData() {
                 onClick={() => handleSelectRecord(key)}
                 className={`p-4 border rounded-md mb-2 cursor-pointer ${
                   selectedId === key
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-50 hover:bg-gray-100"
+                    ? "bg-zenBlue text-zenLight"
+                    : "bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText hover:bg-gray-100 dark:hover:bg-gray-800"
                 }`}
               >
                 <p>
@@ -164,7 +164,7 @@ function UpdateData() {
           <div className="flex-1">
             {selectedId ? (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-xl font-semibold text-zenDark dark:text-zenDarkText">
                   Editing Record ID: {selectedId}
                 </h3>
                 <input
@@ -175,7 +175,7 @@ function UpdateData() {
                     setFormData({ ...formData, date: e.target.value })
                   }
                   required
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
                 />
                 <input
                   type="text"
@@ -186,7 +186,7 @@ function UpdateData() {
                   }
                   placeholder="Sender"
                   required
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
                 />
                 <input
                   type="text"
@@ -197,7 +197,7 @@ function UpdateData() {
                   }
                   placeholder="Receiver"
                   required
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
                 />
                 <textarea
                   name="notes"
@@ -207,11 +207,11 @@ function UpdateData() {
                   }
                   placeholder="Notes"
                   required
-                  className="w-full p-2 border rounded-md resize-none"
+                  className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText resize-none"
                 />
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
+                  className="w-full bg-zenBlue text-zenLight py-2 rounded-md hover:bg-zenAccent transition"
                 >
                   Update Record
                 </button>
