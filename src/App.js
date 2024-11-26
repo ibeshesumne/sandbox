@@ -10,6 +10,7 @@ import CreateData from "./components/features/CreateData";
 import ReadData from "./components/features/ReadData";
 import UpdateData from "./components/features/UpdateData";
 import DeleteData from "./components/features/DeleteData";
+import SearchHelp from "./pages/SearchHelp";  // Import the new SearchHelp component
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -26,6 +27,7 @@ function App() {
           <Route path="/read" element={<ReadData />} />
           <Route path="/update" element={<UpdateData />} />
           <Route path="/delete" element={<DeleteData />} />
+          <Route path="/search-help" element={<SearchHelp />} />  {/* Add the new route */}
           <Route path="*" element={<Home />} />
         </Routes>
       </div>

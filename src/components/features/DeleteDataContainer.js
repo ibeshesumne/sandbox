@@ -6,6 +6,8 @@ import DeleteDataList from "./DeleteDataList";
 
 function DeleteDataContainer() {
   const [records, setRecords] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 10;
 
   useEffect(() => {
     const dbRef = ref(db, "letters");
@@ -14,6 +16,31 @@ function DeleteDataContainer() {
       setRecords(data || {});
     });
   }, []);
+
+  const totalPages = Math.ceil(Object.keys(records).length / recordsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleGoToLastPage = () => {
+    setCurrentPage(totalPages);
+  };
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = Object.keys(records).slice(indexOfFirstRecord, indexOfLastRecord).reduce((acc, key) => {
+    acc[key] = records[key];
+    return acc;
+  }, {});
 
   const handleDelete = (id) => {
     if (window.confirm(`Are you sure you want to delete record ID: ${id}?`)) {
@@ -24,7 +51,17 @@ function DeleteDataContainer() {
     }
   };
 
-  return <DeleteDataList records={records} handleDelete={handleDelete} />;
+  return (
+    <DeleteDataList
+      records={currentRecords}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handleNextPage={handleNextPage}
+      handlePreviousPage={handlePreviousPage}
+      handleGoToLastPage={handleGoToLastPage}
+      handleDelete={handleDelete}
+    />
+  );
 }
 
 export default DeleteDataContainer;
