@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { ref, onValue } from "firebase/database";
+// ReadDataList.js
+import React from "react";
 import { Link } from "react-router-dom";
 
-function ReadData() {
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    const dbRef = ref(db, "letters");
-    onValue(dbRef, (snapshot) => {
-      const data = snapshot.val();
-      setData(data || {});
-    });
-  }, []);
-
+function ReadDataList({ data }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zenGray dark:bg-zenDark">
       <div className="max-w-4xl p-8 bg-zenLight dark:bg-zenDark rounded-lg shadow-md">
@@ -42,4 +31,4 @@ function ReadData() {
   );
 }
 
-export default ReadData;
+export default ReadDataList;
