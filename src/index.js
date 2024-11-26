@@ -4,10 +4,10 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from "./App";
-import CreateData from "./Components/CreateData";
-import ReadData from "./Components/ReadData";
-import UpdateData from "./Components/UpdateData";
-import DeleteData from "./Components/DeleteData";
+import CreateData from "./components/CreateData";
+import ReadData from "./components/ReadData";
+import UpdateData from "./components/UpdateData";
+import DeleteData from "./components/DeleteData";
 import { DarkModeProvider } from "./DarkModeContext";
 
 ReactDOM.render(
