@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-google-footer dark:bg-google-footer-dark text-google-dark-text dark:text-google-light-text p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <p>&copy; 2024 Leary family production</p>
+        <p>&copy; 2024 Ibeshe production</p>
         <div className="flex items-center space-x-4">
           <Link to="/privacy" className="text-google-dark-text dark:text-google-light-text hover:text-google-blue">Privacy Policy</Link>
           <Link to="/terms" className="text-google-dark-text dark:text-google-light-text hover:text-google-blue">Terms of Service</Link>

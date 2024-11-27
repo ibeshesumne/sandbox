@@ -12,6 +12,7 @@ function UpdateDataList({
   totalPages,
   handleNextPage,
   handlePreviousPage,
+  handleGoToLastPage,
   selectedId,
   handleSelectRecord,
 }) {
@@ -65,6 +66,13 @@ function UpdateDataList({
           className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 disabled:opacity-50"
         >
           Next
+        </button>
+        <button
+          onClick={handleGoToLastPage}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 disabled:opacity-50"
+        >
+          Last
         </button>
       </div>
     </div>

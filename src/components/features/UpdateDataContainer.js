@@ -58,6 +58,10 @@ function UpdateDataContainer() {
     }
   };
 
+  const handleGoToLastPage = () => {
+    setCurrentPage(totalPages);
+  };
+
   // Handle record selection
   const handleSelectRecord = (id) => {
     setSelectedId(id);
@@ -120,6 +124,7 @@ function UpdateDataContainer() {
             totalPages={totalPages}
             handleNextPage={handleNextPage}
             handlePreviousPage={handlePreviousPage}
+            handleGoToLastPage={handleGoToLastPage}
             selectedId={selectedId}
             handleSelectRecord={handleSelectRecord}
           />
