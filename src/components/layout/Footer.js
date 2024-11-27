@@ -33,8 +33,9 @@ const Footer = () => {
                 <Link to="/admin" className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray">
                   Admin
                 </Link>
-                <Link to="/search" className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray">
-                  Search
+                {/* Redirect to Advanced Search Page */}
+                <Link to="/advanced-search" className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray">
+                  Advanced Search
                 </Link>
                 <Link to="/search-help" className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray">
                   Search Help
