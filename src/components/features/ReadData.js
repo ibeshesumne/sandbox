@@ -2,8 +2,8 @@
 import React from "react";
 import ReadDataContainer from "./ReadDataContainer";
 
-function ReadData() {
-  return <ReadDataContainer />;
+function ReadData({ searchQuery, searchFilters }) {
+  return <ReadDataContainer searchQuery={searchQuery} filters={searchFilters} />;
 }
 
 export default ReadData;
