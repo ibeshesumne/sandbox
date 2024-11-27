@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+// src/App.js
+import React, { useContext } from "react";
+import { Routes, Route } from "react-router-dom";
 import { DarkModeContext } from "./contexts/DarkModeContext";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -10,70 +11,38 @@ import CreateData from "./components/features/CreateData";
 import ReadData from "./components/features/ReadData";
 import UpdateData from "./components/features/UpdateData";
 import DeleteData from "./components/features/DeleteData";
-import AdvancedSearch from "./components/features/AdvancedSearch";
-import SearchHelp from "./pages/SearchHelp"; // Import the new SearchHelp component
-import Privacy from "./pages/Privacy"; // Import the new SearchHelp component
-import Terms from "./pages/Terms"; // Import the new SearchHelp component
+import SearchHelp from "./pages/SearchHelp";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import AdminPanel from "./components/admin/AdminPanel";
+import Search from "./pages/Search"; // Import the Search page
+import Results from "./pages/Results";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchFilters, setSearchFilters] = useState({});
-  const navigate = useNavigate();
-
-  // Handle simple search from the header
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    navigate("/read"); // Redirect to the ReadData page to display results
-  };
-
-  // Handle advanced search from AdvancedSearch component
-  const handleAdvancedSearch = (filters) => {
-    setSearchFilters(filters);
-    navigate("/read"); // Redirect to the ReadData page to display results
-  };
-
-  // Reset search and filters
-  const resetSearch = () => {
-    setSearchQuery(""); // Clear general search
-    setSearchFilters({}); // Clear advanced filters
-  };
 
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? "bg-gray-900" : "bg-gray-100"}`}>
-      {/* Pass handleSearch to Header */}
-      <Header onSearch={handleSearch} />
+      <Header /> {/* Header is always rendered at the top */}
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/create" element={<CreateData />} />
-          {/* Pass searchQuery, searchFilters, and resetSearch to ReadData */}
-          <Route
-            path="/read"
-            element={
-              <ReadData
-                searchQuery={searchQuery}
-                searchFilters={searchFilters}
-                resetSearch={resetSearch}
-              />
-            }
-          />
+          <Route path="/read" element={<ReadData />} />
           <Route path="/update" element={<UpdateData />} />
           <Route path="/delete" element={<DeleteData />} />
-          <Route path="/search-help" element={<SearchHelp />} /> {/* Add the new route */}
-          <Route path="/privacy" element={<Privacy />} /> {/* Add the new route */}
-          <Route path="/terms" element={<Terms />} /> {/* Add the new route */}
-          {/* Pass handleAdvancedSearch to AdvancedSearch */}
-          <Route
-            path="/advanced-search"
-            element={<AdvancedSearch onSearch={handleAdvancedSearch} />}
-          />
+          <Route path="/search-help" element={<SearchHelp />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/search" element={<Search />} /> {/* Add the Search route */}
+          <Route path="/results" element={<Results />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
-      <Footer />
+      <Footer /> {/* Footer is always rendered at the bottom */}
     </div>
   );
 }

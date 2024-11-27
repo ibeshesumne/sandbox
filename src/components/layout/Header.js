@@ -1,22 +1,12 @@
-import React, { useState } from "react";
+// src/components/layout/Header.js
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = ({ onSearch }) => {
+const Header = () => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
-
-  const handleSearch = (e) => {
-    if (e.key === "Enter" && query.trim() !== "") {
-      if (onSearch) {
-        onSearch(query.trim()); // Call external search handler if provided
-      } else {
-        navigate(`/read?search=${query.trim()}`); // Fallback to navigation if no handler is passed
-      }
-    }
-  };
 
   return (
-    <header className="bg-google-header text-google-white p-4">
+    <header className="bg-google-header text-google-white p-4 sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <button onClick={() => navigate(-1)} className="text-google-white hover:text-google-blue">
@@ -32,14 +22,6 @@ const Header = ({ onSearch }) => {
           <Link to="/" className="text-lg font-sans hover:underline">Home</Link>
         </div>
         <div className="flex items-center space-x-4">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleSearch}
-            className="rounded px-2 py-1 text-black"
-          />
           <Link to="/about" className="text-lg font-sans hover:underline">About</Link>
           <Link to="/contact" className="text-lg font-sans hover:underline">Contact</Link>
         </div>
