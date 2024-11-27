@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { DarkModeContext } from "./contexts/DarkModeContext";
@@ -10,16 +11,19 @@ import CreateData from "./components/features/CreateData";
 import ReadData from "./components/features/ReadData";
 import UpdateData from "./components/features/UpdateData";
 import DeleteData from "./components/features/DeleteData";
-import SearchHelp from "./pages/SearchHelp";  // Import the new SearchHelp component
-import Privacy from "./pages/Privacy";  // Import the new SearchHelp component
-import Terms from "./pages/Terms";  // Import the new SearchHelp component
+import SearchHelp from "./pages/SearchHelp";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import AdminPanel from "./components/admin/AdminPanel";
+import Search from "./pages/Search"; // Import the Search page
+import Results from "./pages/Results";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? "bg-gray-900" : "bg-gray-100"}`}>
-      <Header />
+      <Header /> {/* Header is always rendered at the top */}
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,13 +33,16 @@ function App() {
           <Route path="/read" element={<ReadData />} />
           <Route path="/update" element={<UpdateData />} />
           <Route path="/delete" element={<DeleteData />} />
-          <Route path="/search-help" element={<SearchHelp />} />  {/* Add the new route */}
-          <Route path="/privacy" element={<Privacy />} />  {/* Add the new route */}
-          <Route path="/terms" element={<Terms />} />  {/* Add the new route */}
+          <Route path="/search-help" element={<SearchHelp />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/search" element={<Search />} /> {/* Add the Search route */}
+          <Route path="/results" element={<Results />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
-      <Footer />
+      <Footer /> {/* Footer is always rendered at the bottom */}
     </div>
   );
 }

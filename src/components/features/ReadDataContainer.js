@@ -1,56 +1,48 @@
-// ReadDataContainer.js
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import ReadDataList from "./ReadDataList";
 
-function ReadDataContainer() {
+function ReadDataContainer({ searchQuery, resetSearch }) {
   const [data, setData] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 10;
+  const [filteredData, setFilteredData] = useState({});
+  const location = useLocation();
 
   useEffect(() => {
     const dbRef = ref(db, "letters");
     onValue(dbRef, (snapshot) => {
-      const data = snapshot.val();
-      setData(data || {});
+      const data = snapshot.val() || {};
+      setData(data);
     });
   }, []);
 
-  const totalPages = Math.ceil(Object.keys(data).length / recordsPerPage);
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setFilteredData(data);
+      resetSearch();
     }
-  };
+  }, [location, data, resetSearch]);
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
+  useEffect(() => {
+    let results = { ...data };
+
+    if (searchQuery) {
+      results = Object.keys(results).reduce((acc, key) => {
+        const record = results[key];
+        const recordString = Object.values(record).join(" ").toLowerCase();
+        if (recordString.includes(searchQuery.toLowerCase())) {
+          acc[key] = record;
+        }
+        return acc;
+      }, {});
     }
-  };
 
-  const handleGoToLastPage = () => {
-    setCurrentPage(totalPages);
-  };
-
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = Object.keys(data).slice(indexOfFirstRecord, indexOfLastRecord).reduce((acc, key) => {
-    acc[key] = data[key];
-    return acc;
-  }, {});
+    setFilteredData(results);
+  }, [data, searchQuery]);
 
   return (
-    <ReadDataList
-      data={currentRecords}
-      currentPage={currentPage}
-      totalPages={totalPages}
-      handleNextPage={handleNextPage}
-      handlePreviousPage={handlePreviousPage}
-      handleGoToLastPage={handleGoToLastPage}
-    />
+    <ReadDataList data={filteredData} />
   );
 }
 
