@@ -35,7 +35,7 @@ const AdminRecord = ({ record }) => {
   };
 
   return (
-    <div className="p-4 border rounded-md mb-2 bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText">
+    <div className="p-4 border rounded-md mb-2 bg-white dark:bg-gray-800 text-black dark:text-white">
       {isEditing ? (
         <form onSubmit={(e) => { e.preventDefault(); handleUpdate(); }} className="space-y-4">
           <input
@@ -44,7 +44,7 @@ const AdminRecord = ({ record }) => {
             value={formData.date}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
+            className="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-black dark:text-white"
           />
           <input
             type="text"
@@ -53,7 +53,7 @@ const AdminRecord = ({ record }) => {
             onChange={handleChange}
             placeholder="Sender"
             required
-            className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
+            className="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-black dark:text-white"
           />
           <input
             type="text"
@@ -62,7 +62,7 @@ const AdminRecord = ({ record }) => {
             onChange={handleChange}
             placeholder="Receiver"
             required
-            className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
+            className="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-black dark:text-white"
           />
           <textarea
             name="notes"
@@ -70,7 +70,7 @@ const AdminRecord = ({ record }) => {
             onChange={handleChange}
             placeholder="Notes"
             required
-            className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText resize-none"
+            className="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-black dark:text-white resize-none"
           />
           <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">
             Save
