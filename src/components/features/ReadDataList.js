@@ -1,12 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ReadDataList = React.memo(({ data }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zenGray dark:bg-zenDark">
       <div className="max-w-4xl p-8 bg-zenLight dark:bg-zenDark rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-zenDark dark:text-zenDarkText mb-6 text-center">View Records</h2>
-        <Link to="/" className="block text-zenAccent text-center mb-4 underline">
+        <h2 className="text-2xl font-bold text-zenDark dark:text-zenDarkText mb-6 text-center">
+          View Records
+        </h2>
+        <Link
+          to="/"
+          className="block text-zenAccent text-center mb-4 underline"
+        >
           Back to Home
         </Link>
         {Object.keys(data).length > 0 ? (

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { db } from "../../firebase";
-import { ref, onValue, off } from "firebase/database";
-import AdminRecord from "./AdminRecord";
+import React, { useState, useEffect } from 'react';
+import { db } from '../../firebase';
+import { ref, query, orderByKey, onValue } from 'firebase/database';
+import AdminRecord from './AdminRecord';
 
 const AdminPanel = () => {
   const [data, setData] = useState([]);
@@ -9,24 +9,25 @@ const AdminPanel = () => {
   const recordsPerPage = 100;
 
   useEffect(() => {
-    const dbRef = ref(db, "letters");
-    const listener = onValue(dbRef, (snapshot) => {
+    const startKey = (currentPage - 1) * recordsPerPage;
+    const dbQuery = query(
+      ref(db, 'letters'),
+      orderByKey()
+    );
+
+    const unsubscribe = onValue(dbQuery, (snapshot) => {
       const fetchedData = snapshot.val() || {};
       const dataArray = Object.keys(fetchedData).map((key) => ({
         id: key,
         ...fetchedData[key],
       }));
-      setData(dataArray);
+      // Paginate the data
+      const paginatedData = dataArray.slice(startKey, startKey + recordsPerPage);
+      setData(paginatedData);
     });
 
-    return () => {
-      off(dbRef, listener);
-    };
-  }, []);
-
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
+    return () => unsubscribe(); // Cleanup the listener on unmount
+  }, [currentPage]);
 
   const handleNextPage = () => {
     setCurrentPage((prev) => prev + 1);
@@ -40,7 +41,7 @@ const AdminPanel = () => {
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
       <div className="space-y-4">
-        {currentRecords.map((record) => (
+        {data.map((record) => (
           <AdminRecord key={record.id} record={record} />
         ))}
       </div>
@@ -48,6 +49,7 @@ const AdminPanel = () => {
         <button
           onClick={handleNextPage}
           className="px-4 py-2 bg-blue-500 text-white rounded"
+          disabled={data.length < recordsPerPage} // Disable if there are no more records
         >
           Next
         </button>

@@ -1,19 +1,19 @@
 // src/pages/Results.js
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { db } from "../firebase";
-import { ref, onValue } from "firebase/database";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 
 const Results = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const initialSearchTerm = queryParams.get("q");
+  const initialSearchTerm = queryParams.get('q');
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [records, setRecords] = useState([]);
   const [filteredRecords, setFilteredRecords] = useState([]);
 
   useEffect(() => {
-    const dbRef = ref(db, "letters");
+    const dbRef = ref(db, 'letters');
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -30,8 +30,8 @@ const Results = () => {
     if (searchTerm) {
       const results = records.filter((record) =>
         Object.values(record).some((value) =>
-          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-        )
+          value.toString().toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
       );
       setFilteredRecords(results);
     }
@@ -54,17 +54,30 @@ const Results = () => {
           {filteredRecords.length > 0 ? (
             <div className="space-y-4">
               {filteredRecords.map((record) => (
-                <div key={record.id} className="p-4 bg-gray-100 dark:bg-gray-700 rounded-md">
-                  <p className="text-gray-900 dark:text-white">Date: {record.date}</p>
-                  <p className="text-gray-900 dark:text-white">Sender: {record.sender}</p>
-                  <p className="text-gray-900 dark:text-white">Receiver: {record.receiver}</p>
-                  <p className="text-gray-900 dark:text-white">Notes: {record.notes}</p>
+                <div
+                  key={record.id}
+                  className="p-4 bg-gray-100 dark:bg-gray-700 rounded-md"
+                >
+                  <p className="text-gray-900 dark:text-white">
+                    Date: {record.date}
+                  </p>
+                  <p className="text-gray-900 dark:text-white">
+                    Sender: {record.sender}
+                  </p>
+                  <p className="text-gray-900 dark:text-white">
+                    Receiver: {record.receiver}
+                  </p>
+                  <p className="text-gray-900 dark:text-white">
+                    Notes: {record.notes}
+                  </p>
                 </div>
               ))}
             </div>
           ) : (
             <div className="text-center text-gray-900 dark:text-white">
-              <p className="text-2xl font-bold">No results found for "{searchTerm}".</p>
+              <p className="text-2xl font-bold">
+                No results found for "{searchTerm}".
+              </p>
               <p className="text-lg">Please try a different search term.</p>
             </div>
           )}

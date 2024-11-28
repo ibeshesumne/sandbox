@@ -1,12 +1,12 @@
 // src/pages/AdvancedSearchPage.js
-import React, { useState } from "react";
-import { getDatabase, ref, get } from "firebase/database";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState } from 'react';
+import { getDatabase, ref, get } from 'firebase/database';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const AdvancedSearchPage = () => {
-  const [filterKey, setFilterKey] = useState("");
-  const [filterValue, setFilterValue] = useState("");
+  const [filterKey, setFilterKey] = useState('');
+  const [filterValue, setFilterValue] = useState('');
   const [dateRange, setDateRange] = useState([null, null]); // [startDate, endDate]
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,9 +14,9 @@ const AdvancedSearchPage = () => {
   const [startDate, endDate] = dateRange;
 
   const handleFilterChange = (field, value) => {
-    if (field === "key") {
+    if (field === 'key') {
       setFilterKey(value);
-    } else if (field === "value") {
+    } else if (field === 'value') {
       setFilterValue(value);
     }
   };
@@ -24,7 +24,7 @@ const AdvancedSearchPage = () => {
   const executeSearch = async () => {
     setLoading(true);
     const db = getDatabase();
-    const recordsRef = ref(db, "letters");
+    const recordsRef = ref(db, 'letters');
 
     let filteredResults = [];
     const snapshot = await get(recordsRef);
@@ -39,7 +39,11 @@ const AdvancedSearchPage = () => {
 
         return (
           dateInRange &&
-          (!filterKey || !filterValue || letter[filterKey]?.toLowerCase().includes(filterValue.toLowerCase()))
+          (!filterKey ||
+            !filterValue ||
+            letter[filterKey]
+              ?.toLowerCase()
+              .includes(filterValue.toLowerCase()))
         );
       });
     }
@@ -49,10 +53,11 @@ const AdvancedSearchPage = () => {
   };
 
   const saveSearch = () => {
-    const savedSearches = JSON.parse(localStorage.getItem("savedSearches")) || [];
+    const savedSearches =
+      JSON.parse(localStorage.getItem('savedSearches')) || [];
     savedSearches.push({ filterKey, filterValue, dateRange });
-    localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
-    alert("Search criteria saved!");
+    localStorage.setItem('savedSearches', JSON.stringify(savedSearches));
+    alert('Search criteria saved!');
   };
 
   return (
@@ -65,7 +70,7 @@ const AdvancedSearchPage = () => {
           <select
             className="border p-2 mr-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             value={filterKey}
-            onChange={(e) => handleFilterChange("key", e.target.value)}
+            onChange={(e) => handleFilterChange('key', e.target.value)}
           >
             <option value="">Select Filter</option>
             <option value="sender">Correspondent Name</option>
@@ -78,7 +83,7 @@ const AdvancedSearchPage = () => {
             type="text"
             placeholder="Enter value"
             value={filterValue}
-            onChange={(e) => handleFilterChange("value", e.target.value)}
+            onChange={(e) => handleFilterChange('value', e.target.value)}
           />
         </div>
       </div>
@@ -91,7 +96,10 @@ const AdvancedSearchPage = () => {
         </p>
         <div className="flex items-center">
           <div className="mr-4">
-            <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1" htmlFor="start-date">
+            <label
+              className="block text-gray-700 dark:text-gray-300 font-medium mb-1"
+              htmlFor="start-date"
+            >
               Start Date
             </label>
             <DatePicker
@@ -108,7 +116,10 @@ const AdvancedSearchPage = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1" htmlFor="end-date">
+            <label
+              className="block text-gray-700 dark:text-gray-300 font-medium mb-1"
+              htmlFor="end-date"
+            >
               End Date
             </label>
             <DatePicker
@@ -152,7 +163,10 @@ const AdvancedSearchPage = () => {
         ) : results.length > 0 ? (
           <ul>
             {results.map((letter, index) => (
-              <li key={index} className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow">
+              <li
+                key={index}
+                className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow"
+              >
                 <strong>Sender:</strong> {letter.sender} <br />
                 <strong>Receiver:</strong> {letter.receiver} <br />
                 <strong>Date:</strong> {letter.date} <br />

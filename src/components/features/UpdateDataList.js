@@ -1,5 +1,4 @@
-// UpdateDataList.js
-import React from "react";
+import React from 'react';
 
 function UpdateDataList({
   records,
@@ -18,6 +17,7 @@ function UpdateDataList({
 }) {
   return (
     <div className="flex-1">
+      {/* Search Input */}
       <input
         type="text"
         placeholder="Search by sender, receiver, or notes"
@@ -28,18 +28,25 @@ function UpdateDataList({
         }}
         className="w-full p-2 mb-4 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
       />
+
+      {/* Records List */}
       {currentRecords.map((key) => (
         <div
           key={key}
+          role="button" // Define the role
+          tabIndex="0" // Make it focusable via keyboard
           onClick={() => handleSelectRecord(key)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleSelectRecord(key); // Handle Enter key
+          }}
           className={`p-4 border rounded-md mb-2 cursor-pointer ${
             selectedId === key
-              ? "bg-zenBlue text-zenLight"
-              : "bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText hover:bg-gray-100 dark:hover:bg-gray-800"
+              ? 'bg-zenBlue text-zenLight'
+              : 'bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText hover:bg-gray-100 dark:hover:bg-gray-800'
           }`}
         >
           <p>
-            <strong>Sender:</strong> {records[key].sender} |{" "}
+            <strong>Sender:</strong> {records[key].sender} |{' '}
             <strong>Date:</strong> {records[key].date}
           </p>
           <p>

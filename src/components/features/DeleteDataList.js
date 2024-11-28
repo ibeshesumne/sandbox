@@ -1,13 +1,26 @@
 // DeleteDataList.js
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function DeleteDataList({ records, currentPage, totalPages, handleNextPage, handlePreviousPage, handleGoToLastPage, handleDelete }) {
+function DeleteDataList({
+  records,
+  currentPage,
+  totalPages,
+  handleNextPage,
+  handlePreviousPage,
+  handleGoToLastPage,
+  handleDelete,
+}) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zenGray dark:bg-zenDark">
       <div className="max-w-4xl p-8 bg-zenLight dark:bg-zenDark rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-zenDark dark:text-zenDarkText mb-6 text-center">Delete Records</h2>
-        <Link to="/" className="block text-zenAccent text-center mb-4 underline">
+        <h2 className="text-2xl font-bold text-zenDark dark:text-zenDarkText mb-6 text-center">
+          Delete Records
+        </h2>
+        <Link
+          to="/"
+          className="block text-zenAccent text-center mb-4 underline"
+        >
           Back to Home
         </Link>
         <div className="space-y-2">
@@ -18,7 +31,9 @@ function DeleteDataList({ records, currentPage, totalPages, handleNextPage, hand
             >
               <div>
                 <p className="font-bold">ID: {key}</p>
-                <p>{records[key].sender} - {records[key].date}</p>
+                <p>
+                  {records[key].sender} - {records[key].date}
+                </p>
               </div>
               <button
                 onClick={() => handleDelete(key)}
@@ -30,7 +45,9 @@ function DeleteDataList({ records, currentPage, totalPages, handleNextPage, hand
           ))}
         </div>
         {Object.keys(records).length === 0 && (
-          <p className="text-center text-gray-500 mt-4">No records to delete.</p>
+          <p className="text-center text-gray-500 mt-4">
+            No records to delete.
+          </p>
         )}
 
         {/* Pagination Controls */}

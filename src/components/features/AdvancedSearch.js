@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import debounce from "lodash/debounce";
+import React, { useState, useEffect, useCallback } from 'react';
+import debounce from 'lodash/debounce';
 
 const AdvancedSearch = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   // Define the debounced function outside of useCallback
   const debouncedSearch = debounce((searchQuery) => {
@@ -10,7 +10,10 @@ const AdvancedSearch = ({ onSearch }) => {
   }, 300);
 
   // Memoize the handleSearch function
-  const handleSearch = useCallback(debouncedSearch, [debouncedSearch, onSearch]);
+  const handleSearch = useCallback(debouncedSearch, [
+    debouncedSearch,
+    onSearch,
+  ]);
 
   useEffect(() => {
     handleSearch(query);

@@ -9,7 +9,10 @@ const DarkModeToggle = () => {
   const toggleLabel = darkMode ? 'Dark Mode: On' : 'Dark Mode: Off';
 
   return (
-    <button onClick={toggleDarkMode} className="text-google-dark-text dark:text-google-light-text hover:text-google-blue w-full text-left">
+    <button
+      onClick={toggleDarkMode}
+      className="text-google-dark-text dark:text-google-light-text hover:text-google-blue w-full text-left"
+    >
       {toggleLabel}
     </button>
   );

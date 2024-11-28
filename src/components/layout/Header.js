@@ -1,6 +1,6 @@
 // src/components/layout/Header.js
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,7 +19,10 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         {/* Navigation Buttons */}
         <div className="flex items-center space-x-4">
-          <button onClick={() => navigate(-1)} className="text-gray-600 hover:text-blue-500">
+          <button
+            onClick={() => navigate(-1)}
+            className="text-gray-600 hover:text-blue-500"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -27,10 +30,18 @@ const Header = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
-          <button onClick={() => navigate(1)} className="text-gray-600 hover:text-blue-500">
+          <button
+            onClick={() => navigate(1)}
+            className="text-gray-600 hover:text-blue-500"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -38,10 +49,18 @@ const Header = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
-          <Link to="/" className="text-lg font-sans text-gray-600 hover:text-blue-500">
+          <Link
+            to="/"
+            className="text-lg font-sans text-gray-600 hover:text-blue-500"
+          >
             Home
           </Link>
         </div>
@@ -60,7 +79,12 @@ const Header = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </button>
 
@@ -99,10 +123,16 @@ const Header = () => {
 
         {/* Other Links */}
         <div className="flex items-center space-x-4">
-          <Link to="/about" className="text-lg font-sans text-gray-600 hover:text-blue-500">
+          <Link
+            to="/about"
+            className="text-lg font-sans text-gray-600 hover:text-blue-500"
+          >
             About
           </Link>
-          <Link to="/contact" className="text-lg font-sans text-gray-600 hover:text-blue-500">
+          <Link
+            to="/contact"
+            className="text-lg font-sans text-gray-600 hover:text-blue-500"
+          >
             Contact
           </Link>
         </div>

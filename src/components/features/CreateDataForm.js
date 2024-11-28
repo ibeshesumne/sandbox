@@ -1,11 +1,13 @@
 // src/components/features/CreateDataForm.js
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CreateDataForm = ({ formData, handleChange, handleSubmit }) => (
   <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
     <div className="max-w-xl p-8 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Create Record</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+        Create Record
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="date"

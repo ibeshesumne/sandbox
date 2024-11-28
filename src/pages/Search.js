@@ -1,12 +1,11 @@
-// src/pages/Search.js
-import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
-import { ref, onValue } from "firebase/database";
-import { useNavigate } from "react-router-dom";
-import { FaSearch } from "react-icons/fa"; // Correct import statement
+import React, { useState, useEffect } from 'react';
+import { db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
+import { useNavigate } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 
 const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [records, setRecords] = useState([]);
   const [filteredRecords, setFilteredRecords] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -14,7 +13,7 @@ const Search = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const dbRef = ref(db, "letters");
+    const dbRef = ref(db, 'letters');
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -27,7 +26,7 @@ const Search = () => {
         // Extract unique senders
         const sendersSet = new Set();
         recordsArray.forEach((record) => {
-          const sender = record.sender || "Unknown";
+          const sender = record.sender || 'Unknown';
           sendersSet.add(sender);
         });
 
@@ -53,7 +52,7 @@ const Search = () => {
   }, [searchTerm, records]);
 
   const handleSearch = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       navigate(`/results?q=${searchTerm}`);
     }
   };
@@ -70,7 +69,12 @@ const Search = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8" style={{ fontSize: '72px' }}>Search</h1>
+        <h1
+          className="text-4xl font-bold text-gray-900 dark:text-white mb-8"
+          style={{ fontSize: '72px' }}
+        >
+          Search
+        </h1>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaSearch className="text-gray-400" />
@@ -87,13 +91,15 @@ const Search = () => {
           {showSuggestions && (
             <div className="absolute z-10 w-full max-w-2xl bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md mt-1">
               {randomSenders.map((sender, index) => (
-                <div
+                <button
                   key={index}
-                  className="p-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 text-sm text-gray-700 dark:text-gray-300 text-left"
+                  tabIndex="0"
+                  onKeyDown={(e) => e.key === 'Enter' && handleSuggestionClick(sender)}
                   onClick={() => handleSuggestionClick(sender)}
+                  className="p-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 text-sm text-gray-700 dark:text-gray-300 text-left w-full"
                 >
                   {sender}
-                </div>
+                </button>
               ))}
             </div>
           )}
@@ -103,11 +109,22 @@ const Search = () => {
         <div className="w-full max-w-2xl">
           <div className="space-y-4">
             {filteredRecords.map((record) => (
-              <div key={record.id} className="p-4 bg-gray-100 dark:bg-gray-700 rounded-md">
-                <p className="text-gray-900 dark:text-white">Date: {record.date}</p>
-                <p className="text-gray-900 dark:text-white">Sender: {record.sender}</p>
-                <p className="text-gray-900 dark:text-white">Receiver: {record.receiver}</p>
-                <p className="text-gray-900 dark:text-white">Notes: {record.notes}</p>
+              <div
+                key={record.id}
+                className="p-4 bg-gray-100 dark:bg-gray-700 rounded-md"
+              >
+                <p className="text-gray-900 dark:text-white">
+                  Date: {record.date}
+                </p>
+                <p className="text-gray-900 dark:text-white">
+                  Sender: {record.sender}
+                </p>
+                <p className="text-gray-900 dark:text-white">
+                  Receiver: {record.receiver}
+                </p>
+                <p className="text-gray-900 dark:text-white">
+                  Notes: {record.notes}
+                </p>
               </div>
             ))}
           </div>

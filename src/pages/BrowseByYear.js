@@ -1,6 +1,6 @@
 // src/pages/BrowseByYear.js
-import React, { useEffect, useState } from "react";
-import { getDatabase, ref, get } from "firebase/database";
+import React, { useEffect, useState } from 'react';
+import { getDatabase, ref, get } from 'firebase/database';
 
 const BrowseByYear = () => {
   const [years, setYears] = useState([]); // List of unique years
@@ -11,7 +11,7 @@ const BrowseByYear = () => {
   useEffect(() => {
     const fetchYears = async () => {
       const db = getDatabase();
-      const recordsRef = ref(db, "letters");
+      const recordsRef = ref(db, 'letters');
       const snapshot = await get(recordsRef);
 
       if (snapshot.exists()) {
@@ -20,7 +20,7 @@ const BrowseByYear = () => {
         // Extract unique years
         const yearsSet = new Set();
         Object.values(data).forEach((record) => {
-          const year = record.date?.split("-")[0];
+          const year = record.date?.split('-')[0];
           if (year) yearsSet.add(year);
         });
 
@@ -36,7 +36,7 @@ const BrowseByYear = () => {
   const fetchLettersForYear = async (year) => {
     setLoading(true);
     const db = getDatabase();
-    const recordsRef = ref(db, "letters");
+    const recordsRef = ref(db, 'letters');
     const snapshot = await get(recordsRef);
 
     if (snapshot.exists()) {
@@ -44,7 +44,7 @@ const BrowseByYear = () => {
 
       // Filter letters for the selected year
       const filteredLetters = Object.values(data).filter(
-        (record) => record.date?.split("-")[0] === year
+        (record) => record.date?.split('-')[0] === year,
       );
 
       setLetters(filteredLetters);
@@ -76,8 +76,8 @@ const BrowseByYear = () => {
               <button
                 className={`w-full text-left py-2 px-4 rounded-md mb-2 ${
                   selectedYear === year
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'
                 }`}
                 onClick={() => handleYearClick(year)}
               >
@@ -104,7 +104,10 @@ const BrowseByYear = () => {
             {letters.length > 0 ? (
               <ul>
                 {letters.map((letter, index) => (
-                  <li key={index} className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow">
+                  <li
+                    key={index}
+                    className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow"
+                  >
                     <strong>Sender:</strong> {letter.sender} <br />
                     <strong>Receiver:</strong> {letter.receiver} <br />
                     <strong>Date:</strong> {letter.date} <br />

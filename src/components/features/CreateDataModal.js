@@ -1,15 +1,15 @@
 // src/components/features/CreateDataModal.js
-import React, { useState } from "react";
-import { db } from "../../firebase";
-import { ref, push } from "firebase/database";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { db } from '../../firebase';
+import { ref, push } from 'firebase/database';
+import { useNavigate } from 'react-router-dom';
 
 const CreateDataModal = ({ onClose }) => {
   const [formData, setFormData] = useState({
-    date: "",
-    sender: "",
-    receiver: "",
-    notes: "",
+    date: '',
+    sender: '',
+    receiver: '',
+    notes: '',
   });
 
   const navigate = useNavigate();
@@ -20,20 +20,22 @@ const CreateDataModal = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dbRef = ref(db, "letters");
+    const dbRef = ref(db, 'letters');
     push(dbRef, formData)
       .then(() => {
-        alert("Data created successfully!");
+        alert('Data created successfully!');
         onClose();
-        navigate("/read");
+        navigate('/read');
       })
-      .catch((error) => alert("Error creating data: " + error.message));
+      .catch((error) => alert('Error creating data: ' + error.message));
   };
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
       <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Create Record</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+          Create Record
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="date"
@@ -74,7 +76,10 @@ const CreateDataModal = ({ onClose }) => {
             Create
           </button>
         </form>
-        <button onClick={onClose} className="block text-center mt-4 text-blue-500 underline">
+        <button
+          onClick={onClose}
+          className="block text-center mt-4 text-blue-500 underline"
+        >
           Close
         </button>
       </div>
