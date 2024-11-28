@@ -5,15 +5,20 @@ import { ref, onValue } from 'firebase/database';
 import ReadDataList from './ReadDataList';
 
 function ReadDataContainer({ searchQuery, resetSearch }) {
-  const [data, setData] = useState({});
-  const [filteredData, setFilteredData] = useState({});
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
     const dbRef = ref(db, 'letters');
     onValue(dbRef, (snapshot) => {
-      const data = snapshot.val() || {};
-      setData(data);
+      const rawData = snapshot.val() || {};
+      // Convert the object to an array of records
+      const dataArray = Object.keys(rawData).map((key) => ({
+        id: key,
+        ...rawData[key],
+      }));
+      setData(dataArray);
     });
   }, []);
 
@@ -25,17 +30,13 @@ function ReadDataContainer({ searchQuery, resetSearch }) {
   }, [location, data, resetSearch]);
 
   useEffect(() => {
-    let results = { ...data };
+    let results = [...data]; // Make a copy of the data array
 
     if (searchQuery) {
-      results = Object.keys(results).reduce((acc, key) => {
-        const record = results[key];
+      results = results.filter((record) => {
         const recordString = Object.values(record).join(' ').toLowerCase();
-        if (recordString.includes(searchQuery.toLowerCase())) {
-          acc[key] = record;
-        }
-        return acc;
-      }, {});
+        return recordString.includes(searchQuery.toLowerCase());
+      });
     }
 
     setFilteredData(results);
