@@ -5,25 +5,20 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AdvancedSearchPage = () => {
-  const [filters, setFilters] = useState([{ key: "", value: "" }]);
+  const [filterKey, setFilterKey] = useState("");
+  const [filterValue, setFilterValue] = useState("");
   const [dateRange, setDateRange] = useState([null, null]); // [startDate, endDate]
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const [startDate, endDate] = dateRange;
 
-  const handleFilterChange = (index, field, value) => {
-    const updatedFilters = [...filters];
-    updatedFilters[index][field] = value;
-    setFilters(updatedFilters);
-  };
-
-  const addFilter = () => {
-    setFilters([...filters, { key: "", value: "" }]);
-  };
-
-  const removeFilter = (index) => {
-    setFilters(filters.filter((_, i) => i !== index));
+  const handleFilterChange = (field, value) => {
+    if (field === "key") {
+      setFilterKey(value);
+    } else if (field === "value") {
+      setFilterValue(value);
+    }
   };
 
   const executeSearch = async () => {
@@ -44,10 +39,7 @@ const AdvancedSearchPage = () => {
 
         return (
           dateInRange &&
-          filters.every((filter) => {
-            if (!filter.key || !filter.value) return true;
-            return letter[filter.key]?.toLowerCase().includes(filter.value.toLowerCase());
-          })
+          (!filterKey || !filterValue || letter[filterKey]?.toLowerCase().includes(filterValue.toLowerCase()))
         );
       });
     }
@@ -58,62 +50,48 @@ const AdvancedSearchPage = () => {
 
   const saveSearch = () => {
     const savedSearches = JSON.parse(localStorage.getItem("savedSearches")) || [];
-    savedSearches.push({ filters, dateRange });
+    savedSearches.push({ filterKey, filterValue, dateRange });
     localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
     alert("Search criteria saved!");
   };
 
   return (
-    <div className="container mx-auto px-6 py-12">
+    <div className="container mx-auto px-6 py-12 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <h1 className="text-3xl font-bold mb-6">Advanced Search</h1>
 
       {/* Filters Section */}
       <div className="mb-6">
-        {filters.map((filter, index) => (
-          <div key={index} className="flex items-center mb-4">
-            <select
-              className="border p-2 mr-4"
-              value={filter.key}
-              onChange={(e) => handleFilterChange(index, "key", e.target.value)}
-            >
-              <option value="">Select Filter</option>
-              <option value="sender">Correspondent Name</option>
-              <option value="receiver">Recipient Name</option>
-              <option value="notes">Mentioned Topics</option>
-              <option value="date">Date</option>
-            </select>
-            <input
-              className="border p-2 flex-grow"
-              type="text"
-              placeholder="Enter value"
-              value={filter.value}
-              onChange={(e) => handleFilterChange(index, "value", e.target.value)}
-            />
-            <button
-              className="bg-red-500 text-white py-1 px-3 rounded ml-2 hover:bg-red-600"
-              onClick={() => removeFilter(index)}
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-        <button
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-          onClick={addFilter}
-        >
-          Add Filter
-        </button>
+        <div className="flex items-center mb-4">
+          <select
+            className="border p-2 mr-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            value={filterKey}
+            onChange={(e) => handleFilterChange("key", e.target.value)}
+          >
+            <option value="">Select Filter</option>
+            <option value="sender">Correspondent Name</option>
+            <option value="receiver">Recipient Name</option>
+            <option value="notes">Mentioned Topics</option>
+            <option value="date">Date</option>
+          </select>
+          <input
+            className="border p-2 flex-grow bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            type="text"
+            placeholder="Enter value"
+            value={filterValue}
+            onChange={(e) => handleFilterChange("value", e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Date Range Picker Section */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold mb-4">Filter by Date Range</h2>
-        <p className="text-gray-600 mb-2">
+        <p className="text-gray-600 dark:text-gray-400 mb-2">
           Select a start and end date using the calendar.
         </p>
         <div className="flex items-center">
           <div className="mr-4">
-            <label className="block text-gray-700 font-medium mb-1" htmlFor="start-date">
+            <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1" htmlFor="start-date">
               Start Date
             </label>
             <DatePicker
@@ -124,13 +102,13 @@ const AdvancedSearchPage = () => {
               endDate={endDate}
               showYearDropdown
               dateFormat="yyyy-MM-dd"
-              className="border p-2 w-full"
+              className="border p-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               placeholderText="Select start date"
               id="start-date"
             />
           </div>
           <div>
-            <label className="block text-gray-700 font-medium mb-1" htmlFor="end-date">
+            <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1" htmlFor="end-date">
               End Date
             </label>
             <DatePicker
@@ -142,7 +120,7 @@ const AdvancedSearchPage = () => {
               minDate={startDate}
               showYearDropdown
               dateFormat="yyyy-MM-dd"
-              className="border p-2 w-full"
+              className="border p-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               placeholderText="Select end date"
               id="end-date"
             />
@@ -174,7 +152,7 @@ const AdvancedSearchPage = () => {
         ) : results.length > 0 ? (
           <ul>
             {results.map((letter, index) => (
-              <li key={index} className="mb-4 border-b pb-2">
+              <li key={index} className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow">
                 <strong>Sender:</strong> {letter.sender} <br />
                 <strong>Receiver:</strong> {letter.receiver} <br />
                 <strong>Date:</strong> {letter.date} <br />

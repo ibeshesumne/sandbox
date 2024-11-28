@@ -66,9 +66,9 @@ const BrowseByYear = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="container mx-auto px-6 py-12 flex">
+    <div className="container mx-auto px-6 py-12 flex bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* Sidebar for Years */}
-      <div className="w-1/4 bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-md">
+      <div className="w-1/4 bg-gray-200 dark:bg-gray-800 p-4 rounded-md shadow-md">
         <h2 className="text-lg font-semibold mb-4">Years</h2>
         <ul>
           {years.map((year) => (
@@ -77,7 +77,7 @@ const BrowseByYear = () => {
                 className={`w-full text-left py-2 px-4 rounded-md mb-2 ${
                   selectedYear === year
                     ? "bg-blue-600 text-white"
-                    : "bg-gray-200 hover:bg-gray-300"
+                    : "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
                 }`}
                 onClick={() => handleYearClick(year)}
               >
@@ -104,7 +104,7 @@ const BrowseByYear = () => {
             {letters.length > 0 ? (
               <ul>
                 {letters.map((letter, index) => (
-                  <li key={index} className="mb-4 border-b pb-2">
+                  <li key={index} className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow">
                     <strong>Sender:</strong> {letter.sender} <br />
                     <strong>Receiver:</strong> {letter.receiver} <br />
                     <strong>Date:</strong> {letter.date} <br />
