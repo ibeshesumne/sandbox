@@ -31,10 +31,10 @@ const Search = () => {
           sendersSet.add(sender);
         });
 
-        // Select a few random senders
+        // Select 10 random senders
         const sendersArray = Array.from(sendersSet);
         const randomSenders = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
           const randomIndex = Math.floor(Math.random() * sendersArray.length);
           randomSenders.push(sendersArray[randomIndex]);
         }
@@ -70,7 +70,7 @@ const Search = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Records Search</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8" style={{ fontSize: '72px' }}>Search</h1>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaSearch className="text-gray-400" />
@@ -82,10 +82,10 @@ const Search = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyPress={handleSearch}
             onClick={handleInputClick}
-            className="w-full max-w-xl p-3 pl-10 border rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white mt-4"
+            className="w-full max-w-2xl p-4 pl-10 border rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white mt-4"
           />
           {showSuggestions && (
-            <div className="absolute z-10 w-full max-w-xl bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md mt-1">
+            <div className="absolute z-10 w-full max-w-2xl bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md mt-1">
               {randomSenders.map((sender, index) => (
                 <div
                   key={index}
@@ -100,7 +100,7 @@ const Search = () => {
         </div>
       </div>
       {searchTerm && (
-        <div className="w-full max-w-xl">
+        <div className="w-full max-w-2xl">
           <div className="space-y-4">
             {filteredRecords.map((record) => (
               <div key={record.id} className="p-4 bg-gray-100 dark:bg-gray-700 rounded-md">

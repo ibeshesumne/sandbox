@@ -15,11 +15,11 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-800 text-white p-4 sticky top-0 z-50">
+    <header className="bg-white shadow-md p-4 sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         {/* Navigation Buttons */}
         <div className="flex items-center space-x-4">
-          <button onClick={() => navigate(-1)} className="text-white hover:text-blue-400">
+          <button onClick={() => navigate(-1)} className="text-gray-600 hover:text-blue-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -30,7 +30,7 @@ const Header = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <button onClick={() => navigate(1)} className="text-white hover:text-blue-400">
+          <button onClick={() => navigate(1)} className="text-gray-600 hover:text-blue-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -41,7 +41,7 @@ const Header = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
-          <Link to="/" className="text-lg font-sans hover:underline">
+          <Link to="/" className="text-lg font-sans text-gray-600 hover:text-blue-500">
             Home
           </Link>
         </div>
@@ -50,7 +50,7 @@ const Header = () => {
         <div className="relative">
           <button
             onClick={toggleBrowseDropdown}
-            className="text-lg font-sans hover:underline flex items-center"
+            className="text-lg font-sans text-gray-600 hover:text-blue-500 flex items-center"
           >
             Browse Works
             <svg
@@ -65,8 +65,8 @@ const Header = () => {
           </button>
 
           {browseDropdownOpen && (
-            <ul className="absolute bg-gray-700 text-white mt-2 rounded shadow-lg w-40">
-              <li className="hover:bg-gray-600">
+            <ul className="absolute bg-white text-gray-600 mt-2 rounded shadow-lg w-40">
+              <li className="hover:bg-gray-100">
                 <Link
                   to="/browse/year"
                   className="block px-4 py-2"
@@ -75,7 +75,7 @@ const Header = () => {
                   By Year
                 </Link>
               </li>
-              <li className="hover:bg-gray-600">
+              <li className="hover:bg-gray-100">
                 <Link
                   to="/browse/correspondent"
                   className="block px-4 py-2"
@@ -84,7 +84,7 @@ const Header = () => {
                   By Correspondent
                 </Link>
               </li>
-              <li className="hover:bg-gray-600">
+              <li className="hover:bg-gray-100">
                 <Link
                   to="/browse/topic"
                   className="block px-4 py-2"
@@ -99,10 +99,10 @@ const Header = () => {
 
         {/* Other Links */}
         <div className="flex items-center space-x-4">
-          <Link to="/about" className="text-lg font-sans hover:underline">
+          <Link to="/about" className="text-lg font-sans text-gray-600 hover:text-blue-500">
             About
           </Link>
-          <Link to="/contact" className="text-lg font-sans hover:underline">
+          <Link to="/contact" className="text-lg font-sans text-gray-600 hover:text-blue-500">
             Contact
           </Link>
         </div>
