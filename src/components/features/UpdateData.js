@@ -1,6 +1,6 @@
 // UpdateData.js
-import React from "react";
-import UpdateDataContainer from "./UpdateDataContainer";
+import React from 'react';
+import UpdateDataContainer from './UpdateDataContainer';
 
 function UpdateData() {
   return <UpdateDataContainer />;

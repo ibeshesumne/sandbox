@@ -1,7 +1,8 @@
 module.exports = {
   darkMode: 'class', // Ensure 'class' mode is set for dark mode
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}", // Include all source files for purge
+    "./public/index.html", // Include the root HTML file
   ],
   theme: {
     extend: {

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { db } from "../../firebase";
-import { ref, update, remove } from "firebase/database";
+import React, { useState } from 'react';
+import { db } from '../../firebase';
+import { ref, update, remove } from 'firebase/database';
 
 const AdminRecord = ({ record }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -19,25 +19,33 @@ const AdminRecord = ({ record }) => {
     const dbRef = ref(db, `letters/${record.id}`);
     update(dbRef, formData)
       .then(() => {
-        alert("Record updated successfully!");
+        alert('Record updated successfully!');
         setIsEditing(false);
       })
-      .catch((error) => alert("Error updating record: " + error.message));
+      .catch((error) => alert('Error updating record: ' + error.message));
   };
 
   const handleDelete = () => {
-    if (window.confirm(`Are you sure you want to delete record ID: ${record.id}?`)) {
+    if (
+      window.confirm(`Are you sure you want to delete record ID: ${record.id}?`)
+    ) {
       const dbRef = ref(db, `letters/${record.id}`);
       remove(dbRef)
         .then(() => alert(`Record ${record.id} deleted successfully!`))
-        .catch((error) => alert("Error deleting record: " + error.message));
+        .catch((error) => alert('Error deleting record: ' + error.message));
     }
   };
 
   return (
     <div className="p-4 border rounded-md mb-2 bg-white dark:bg-gray-800 text-black dark:text-white">
       {isEditing ? (
-        <form onSubmit={(e) => { e.preventDefault(); handleUpdate(); }} className="space-y-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleUpdate();
+          }}
+          className="space-y-4"
+        >
           <input
             type="date"
             name="date"
@@ -72,10 +80,17 @@ const AdminRecord = ({ record }) => {
             required
             className="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-black dark:text-white resize-none"
           />
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
+          >
             Save
           </button>
-          <button type="button" onClick={() => setIsEditing(false)} className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition">
+          <button
+            type="button"
+            onClick={() => setIsEditing(false)}
+            className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition"
+          >
             Cancel
           </button>
         </form>
@@ -86,10 +101,16 @@ const AdminRecord = ({ record }) => {
           <p>Sender: {record.sender}</p>
           <p>Receiver: {record.receiver}</p>
           <p>Notes: {record.notes}</p>
-          <button onClick={() => setIsEditing(true)} className="px-4 py-2 bg-blue-500 text-white rounded mr-2">
+          <button
+            onClick={() => setIsEditing(true)}
+            className="px-4 py-2 bg-blue-500 text-white rounded mr-2"
+          >
             Edit
           </button>
-          <button onClick={handleDelete} className="px-4 py-2 bg-red-500 text-white rounded">
+          <button
+            onClick={handleDelete}
+            className="px-4 py-2 bg-red-500 text-white rounded"
+          >
             Delete
           </button>
         </>

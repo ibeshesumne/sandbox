@@ -1,5 +1,5 @@
 // UpdateDataForm.js
-import React from "react";
+import React from 'react';
 
 function UpdateDataForm({ selectedId, formData, setFormData, handleSubmit }) {
   return (
@@ -13,9 +13,7 @@ function UpdateDataForm({ selectedId, formData, setFormData, handleSubmit }) {
             type="date"
             name="date"
             value={formData.date}
-            onChange={(e) =>
-              setFormData({ ...formData, date: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
             required
             className="w-full p-2 border rounded-md bg-zenGray dark:bg-zenDark text-zenDark dark:text-zenDarkText"
           />
@@ -59,9 +57,7 @@ function UpdateDataForm({ selectedId, formData, setFormData, handleSubmit }) {
           </button>
         </form>
       ) : (
-        <p className="text-gray-600">
-          Select a record to edit from the list.
-        </p>
+        <p className="text-gray-600">Select a record to edit from the list.</p>
       )}
     </div>
   );

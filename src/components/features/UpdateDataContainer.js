@@ -1,28 +1,28 @@
 // UpdateDataContainer.js
-import React, { useState, useEffect } from "react";
-import { db } from "../../firebase";
-import { ref, onValue, update } from "firebase/database";
-import UpdateDataList from "./UpdateDataList";
-import UpdateDataForm from "./UpdateDataForm";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import React, { useState, useEffect } from 'react';
+import { db } from '../../firebase';
+import { ref, onValue, update } from 'firebase/database';
+import UpdateDataList from './UpdateDataList';
+import UpdateDataForm from './UpdateDataForm';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 function UpdateDataContainer() {
   const [records, setRecords] = useState({});
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 10;
 
-  const [selectedId, setSelectedId] = useState("");
+  const [selectedId, setSelectedId] = useState('');
   const [formData, setFormData] = useState({
-    date: "",
-    sender: "",
-    receiver: "",
-    notes: "",
+    date: '',
+    sender: '',
+    receiver: '',
+    notes: '',
   });
 
   // Fetch records from Firebase
   useEffect(() => {
-    const dbRef = ref(db, "letters");
+    const dbRef = ref(db, 'letters');
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
       setRecords(data || {});
@@ -42,7 +42,10 @@ function UpdateDataContainer() {
   // Pagination
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = filteredRecords.slice(indexOfFirstRecord, indexOfLastRecord);
+  const currentRecords = filteredRecords.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord,
+  );
 
   const totalPages = Math.ceil(filteredRecords.length / recordsPerPage);
 
@@ -68,10 +71,10 @@ function UpdateDataContainer() {
     const record = records[id];
     if (record) {
       setFormData({
-        date: record.date || "",
-        sender: record.sender || "",
-        receiver: record.receiver || "",
-        notes: record.notes || "",
+        date: record.date || '',
+        sender: record.sender || '',
+        receiver: record.receiver || '',
+        notes: record.notes || '',
       });
     }
   };
@@ -80,7 +83,7 @@ function UpdateDataContainer() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!selectedId) {
-      alert("Please select a record to update.");
+      alert('Please select a record to update.');
       return;
     }
 
@@ -88,16 +91,16 @@ function UpdateDataContainer() {
     update(dbRef, formData)
       .then(() => {
         alert(`Record ID: ${selectedId} updated successfully!`);
-        setSelectedId("");
+        setSelectedId('');
         setFormData({
-          date: "",
-          sender: "",
-          receiver: "",
-          notes: "",
+          date: '',
+          sender: '',
+          receiver: '',
+          notes: '',
         });
       })
       .catch((error) => {
-        alert("Error updating record: " + error.message);
+        alert('Error updating record: ' + error.message);
       });
   };
 
@@ -107,7 +110,10 @@ function UpdateDataContainer() {
         <h2 className="text-2xl font-bold text-zenDark dark:text-zenDarkText text-center mb-6">
           Update Records
         </h2>
-        <Link to="/" className="block text-zenAccent text-center mb-4 underline">
+        <Link
+          to="/"
+          className="block text-zenAccent text-center mb-4 underline"
+        >
           Back to Home
         </Link>
 

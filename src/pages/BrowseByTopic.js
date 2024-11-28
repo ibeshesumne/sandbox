@@ -1,6 +1,6 @@
 // src/pages/BrowseByTopic.js
-import React, { useEffect, useState } from "react";
-import { getDatabase, ref, get } from "firebase/database";
+import React, { useEffect, useState } from 'react';
+import { getDatabase, ref, get } from 'firebase/database';
 
 const BrowseByTopic = () => {
   const [topics, setTopics] = useState([]); // List of unique topics
@@ -11,7 +11,7 @@ const BrowseByTopic = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       const db = getDatabase();
-      const recordsRef = ref(db, "letters");
+      const recordsRef = ref(db, 'letters');
       const snapshot = await get(recordsRef);
 
       if (snapshot.exists()) {
@@ -20,7 +20,7 @@ const BrowseByTopic = () => {
         // Extract unique topics (grouping by `notes`)
         const topicsSet = new Set();
         Object.values(data).forEach((record) => {
-          const note = record.notes || "General";
+          const note = record.notes || 'General';
           topicsSet.add(note);
         });
 
@@ -36,7 +36,7 @@ const BrowseByTopic = () => {
   const fetchLettersForTopic = async (topic) => {
     setLoading(true);
     const db = getDatabase();
-    const recordsRef = ref(db, "letters");
+    const recordsRef = ref(db, 'letters');
     const snapshot = await get(recordsRef);
 
     if (snapshot.exists()) {
@@ -44,7 +44,7 @@ const BrowseByTopic = () => {
 
       // Filter letters for the selected topic
       const filteredLetters = Object.values(data).filter(
-        (record) => record.notes === topic
+        (record) => record.notes === topic,
       );
 
       setLetters(filteredLetters);
@@ -76,8 +76,8 @@ const BrowseByTopic = () => {
               <button
                 className={`w-full text-left py-2 px-4 rounded-md mb-2 ${
                   selectedTopic === topic
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'
                 }`}
                 onClick={() => handleTopicClick(topic)}
               >
@@ -104,7 +104,10 @@ const BrowseByTopic = () => {
             {letters.length > 0 ? (
               <ul>
                 {letters.map((letter, index) => (
-                  <li key={index} className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow">
+                  <li
+                    key={index}
+                    className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow"
+                  >
                     <strong>Sender:</strong> {letter.sender} <br />
                     <strong>Receiver:</strong> {letter.receiver} <br />
                     <strong>Date:</strong> {letter.date} <br />

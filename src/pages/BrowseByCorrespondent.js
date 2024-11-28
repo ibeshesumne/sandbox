@@ -1,6 +1,6 @@
 // src/pages/BrowseByCorrespondent.js
-import React, { useEffect, useState } from "react";
-import { getDatabase, ref, get } from "firebase/database";
+import React, { useEffect, useState } from 'react';
+import { getDatabase, ref, get } from 'firebase/database';
 
 const BrowseByCorrespondent = () => {
   const [correspondents, setCorrespondents] = useState([]); // List of unique correspondents
@@ -11,7 +11,7 @@ const BrowseByCorrespondent = () => {
   useEffect(() => {
     const fetchCorrespondents = async () => {
       const db = getDatabase();
-      const recordsRef = ref(db, "letters");
+      const recordsRef = ref(db, 'letters');
       const snapshot = await get(recordsRef);
 
       if (snapshot.exists()) {
@@ -20,7 +20,7 @@ const BrowseByCorrespondent = () => {
         // Extract unique correspondents
         const correspondentsSet = new Set();
         Object.values(data).forEach((record) => {
-          const correspondent = record.sender || "Unknown";
+          const correspondent = record.sender || 'Unknown';
           correspondentsSet.add(correspondent);
         });
 
@@ -36,7 +36,7 @@ const BrowseByCorrespondent = () => {
   const fetchLettersForCorrespondent = async (correspondent) => {
     setLoading(true);
     const db = getDatabase();
-    const recordsRef = ref(db, "letters");
+    const recordsRef = ref(db, 'letters');
     const snapshot = await get(recordsRef);
 
     if (snapshot.exists()) {
@@ -44,7 +44,7 @@ const BrowseByCorrespondent = () => {
 
       // Filter letters for the selected correspondent
       const filteredLetters = Object.values(data).filter(
-        (record) => record.sender === correspondent
+        (record) => record.sender === correspondent,
       );
 
       setLetters(filteredLetters);
@@ -76,8 +76,8 @@ const BrowseByCorrespondent = () => {
               <button
                 className={`w-full text-left py-2 px-4 rounded-md mb-2 ${
                   selectedCorrespondent === correspondent
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'
                 }`}
                 onClick={() => handleCorrespondentClick(correspondent)}
               >
@@ -104,7 +104,10 @@ const BrowseByCorrespondent = () => {
             {letters.length > 0 ? (
               <ul>
                 {letters.map((letter, index) => (
-                  <li key={index} className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow">
+                  <li
+                    key={index}
+                    className="mb-4 border-b pb-2 bg-white dark:bg-gray-800 p-4 rounded shadow"
+                  >
                     <strong>Receiver:</strong> {letter.receiver} <br />
                     <strong>Date:</strong> {letter.date} <br />
                     <strong>Notes:</strong> {letter.notes}
