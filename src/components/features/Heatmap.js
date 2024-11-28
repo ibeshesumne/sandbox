@@ -9,12 +9,14 @@ const Heatmap = () => {
     fetchLettersData().then((data) => {
       if (!data) return;
 
-      const letters = Object.values(data).map((item) => ({
-        date: new Date(item.date),
-        sender: item.sender,
-        receiver: item.receiver,
-        notes: item.notes,
-      }));
+      const letters = Object.values(data)
+        .map((item) => ({
+          date: new Date(item.date),
+          sender: item.sender,
+          receiver: item.receiver,
+          notes: item.notes,
+        }))
+        .filter((item) => item.sender === "Henri Thomas" || item.receiver === "Henri Thomas");
 
       createHeatmap(letters);
     });
@@ -35,25 +37,11 @@ const Heatmap = () => {
       (d) => d3.timeFormat("%Y-%m-%d")(d.date)
     );
 
-    // Calculate fixed thresholds for color scale
-    const frequencies = Array.from(correspondenceMap.values());
-    const minFrequency = d3.min(frequencies) || 0;
-    const maxFrequency = d3.max(frequencies) || 1;
-
-    // DEBUG: Log frequencies, min, max
-    console.log("Frequencies:", frequencies);
-    console.log("Min Frequency:", minFrequency);
-    console.log("Max Frequency:", maxFrequency);
-
-    // Divide range into three categories
-    const lowThreshold = Math.floor((maxFrequency - minFrequency) / 3);
-    const mediumThreshold = Math.floor((2 * (maxFrequency - minFrequency)) / 3);
-
-    // Define three-color scale
+    // Define two-color scale
     const colorScale = d3
       .scaleThreshold()
-      .domain([lowThreshold, mediumThreshold]) // Fixed thresholds
-      .range(["#deebf7", "#9ecae1", "#3182bd"]); // Light, medium, dark blue
+      .domain([1]) // Fixed threshold for 1 letter
+      .range(["#deebf7", "#3182bd"]); // Light blue for 1 letter, dark blue for more than 1 letter
 
     svg.selectAll("*").remove();
     svg.attr("width", width).attr("height", years.length * (cellSize * 7 + padding));
@@ -112,7 +100,8 @@ const Heatmap = () => {
           .attr("height", cellSize - 1)
           .attr("fill", (d) => {
             const dateKey = d3.timeFormat("%Y-%m-%d")(d);
-            return colorScale(correspondenceMap.get(dateKey) || 0); // Apply threshold-based color scale
+            const count = correspondenceMap.get(dateKey) || 0;
+            return count > 0 ? colorScale(count) : "none"; // Apply color only if there are letters
           })
           .append("title")
           .text((d) => {
@@ -125,9 +114,8 @@ const Heatmap = () => {
         const legendGroup = group.append("g").attr("transform", `translate(${width - 100}, 0)`);
 
         const legend = [
-          { label: `0–${lowThreshold}`, color: "#deebf7" },
-          { label: `${lowThreshold + 1}–${mediumThreshold}`, color: "#9ecae1" },
-          { label: `>${mediumThreshold}`, color: "#3182bd" },
+          { label: "1 letter", color: "#deebf7" },
+          { label: ">1 letter", color: "#3182bd" },
         ];
 
         legendGroup
