@@ -1,8 +1,8 @@
 // src/components/layout/Footer.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import DarkModeToggle from '../ui/DarkModeToggle';
-import CreateDataModal from '../features/CreateDataModal';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import DarkModeToggle from "../ui/DarkModeToggle";
+import CreateDataModal from "../features/CreateDataModal";
 
 const Footer = () => {
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +42,6 @@ const Footer = () => {
                 >
                   Admin
                 </Link>
-                {/* Redirect to Advanced Search Page */}
                 <Link
                   to="/advanced-search"
                   className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray"
@@ -50,10 +49,22 @@ const Footer = () => {
                   Advanced Search
                 </Link>
                 <Link
+                  to="/heatmap" // New Heatmap link
+                  className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray"
+                >
+                  Heat Map
+                </Link>
+                <Link
                   to="/search-help"
                   className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray"
                 >
                   Search Help
+                </Link>
+                <Link
+                  to="/statistics" // New Statistics link
+                  className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray"
+                >
+                  Statistics
                 </Link>
                 <div className="px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray">
                   <DarkModeToggle label="Mode toggle" />
