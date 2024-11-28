@@ -44,7 +44,9 @@ const Heatmap = () => {
       .range(["#deebf7", "#3182bd"]); // Light blue for 1 letter, dark blue for more than 1 letter
 
     svg.selectAll("*").remove();
-    svg.attr("width", width).attr("height", years.length * (cellSize * 7 + padding));
+    svg
+      .attr("viewBox", `0 0 ${width} ${years.length * (cellSize * 7 + padding)}`)
+      .attr("preserveAspectRatio", "xMinYMin meet");
 
     const days = ["M", "T", "W", "T", "F", "S", "S"]; // Labels for days of the week
 
@@ -144,7 +146,11 @@ const Heatmap = () => {
       });
   };
 
-  return <svg ref={svgRef}></svg>;
+  return (
+    <div style={{ overflowX: "auto", width: "100%" }}>
+      <svg ref={svgRef} style={{ display: "block", maxWidth: "none" }}></svg>
+    </div>
+  );
 };
 
 export default Heatmap;
