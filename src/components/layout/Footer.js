@@ -3,9 +3,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import DarkModeToggle from "../ui/DarkModeToggle";
 import CreateDataModal from "../features/CreateDataModal";
+import exportRecordsToCSV from "../../utils/exportRecordsToCSV"; // Ensure this utility is created
 
 const Footer = () => {
   const [showModal, setShowModal] = useState(false);
+
+  const handleExport = async () => {
+    const success = await exportRecordsToCSV();
+    if (success) {
+      alert("File has been downloaded!");
+    } else {
+      alert("Error exporting records.");
+    }
+  };
 
   return (
     <footer className="bg-google-footer dark:bg-google-footer-dark text-google-dark-text dark:text-google-light-text p-4">
@@ -49,7 +59,7 @@ const Footer = () => {
                   Advanced Search
                 </Link>
                 <Link
-                  to="/heatmap" // New Heatmap link
+                  to="/heatmap"
                   className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray"
                 >
                   Heat Map
@@ -61,11 +71,17 @@ const Footer = () => {
                   Search Help
                 </Link>
                 <Link
-                  to="/statistics" // New Statistics link
+                  to="/statistics"
                   className="block px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray"
                 >
                   Statistics
                 </Link>
+                <button
+                  onClick={handleExport}
+                  className="block w-full text-left px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray"
+                >
+                  Export Records
+                </button>
                 <div className="px-4 py-2 hover:bg-google-light-gray dark:hover:bg-google-dark-gray">
                   <DarkModeToggle label="Mode toggle" />
                 </div>
